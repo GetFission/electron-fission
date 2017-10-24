@@ -62,21 +62,43 @@ function getAppPlatform() {
     }
     return process.env.PLATFORM || process.env.TRAVIS_OS_NAME || 'N/A';
 }
+function isTravis() {
+    return process.env.TRAVIS ? true : false;
+}
+function isAppVeyor() {
+    return process.env.APPVEYOR ? true : false;
+}
 function getCiName() {
-    var travis = process.env.TRAVIS ? 'travis' : null;
-    var appVeyor = process.env.APPVEYOR ? 'appveyor' : null;
-    return travis || appVeyor || 'local';
+    var travis = isTravis() ? 'travis' : '';
+    var appveyor = isAppVeyor() ? 'appveyor' : '';
+    return travis || appveyor || 'local';
+}
+function getBuildURL() {
+    if (process.env.BUILD_URL)
+        return process.env.BUILD_URL;
+    if (isTravis()) {
+        var repoSlug = process.env.TRAVIS_REPO_SLUG;
+        var jobNumber = process.env.TRAVIS_JOB_NUMBER;
+        return "https://travis-ci.org/" + repoSlug + "/jobs/" + jobNumber;
+    }
+    if (isAppVeyor()) {
+        var repoSlug = process.env.APPVEYOR_PROJECT_SLUG;
+        var buildNumber = process.env.APPVEYOR_BUILD_NUMBER;
+        return "https://ci.appveyor.com/project/" + repoSlug + "/build/" + buildNumber;
+    }
+    return 'N/A';
 }
 function getBuildParams() {
     // https://docs.travis-ci.com/user/environment-variables/
     // https://www.appveyor.com/docs/environment-variables/
     return {
+        app_version: getAppVersion(),
+        build_url: getBuildURL(),
+        branch_name: process.env.TRAVIS_BRANCH || process.env.APPVEYOR_REPO_BRANCH || 'N/A',
         ci: getCiName(),
+        ci_job_id: process.env.TRAVIS_JOB_ID || process.env.APPVEYOR_JOB_ID || 'N/A',
         commit_hash: process.env.TRAVIS_COMMIT || process.env.APPVEYOR_REPO_COMMIT || 'N/A',
         platform: getAppPlatform(),
-        branch_name: process.env.TRAVIS_BRANCH || process.env.APPVEYOR_REPO_BRANCH || 'N/A',
-        ci_job_id: process.env.TRAVIS_JOB_ID || process.env.APPVEYOR_JOB_ID || 'N/A',
-        app_version: getAppVersion(),
         pull_request_number: process.env.TRAVIS_PULL_REQUEST || process.env.APPVEYOR_PULL_REQUEST_NUMBER
     };
 }
