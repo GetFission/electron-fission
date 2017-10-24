@@ -1,3 +1,0 @@
-const fission = require('electron-fission')
-
-fission.fissionPing()

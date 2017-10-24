@@ -3,6 +3,7 @@
   "version": "0.2.4",
   "description": "",
   "main": "dist/index.js",
+  "files": ["./src/cli.js"],
   "types": "dist/index.d.ts",
   "keywords": [],
   "author": "",
@@ -16,6 +17,9 @@
   },
   "publishConfig": {
     "tag": "next"
+  },
+  "bin": {
+    "fission-ping": "./dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
