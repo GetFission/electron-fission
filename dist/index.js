@@ -82,9 +82,9 @@ function getBuildURL() {
         return "https://travis-ci.org/" + repoSlug + "/jobs/" + jobNumber;
     }
     if (isAppVeyor()) {
-        var repoSlug = process.env.APPVEYOR_PROJECT_SLUG;
+        var repoSlug = process.env.APPVEYOR_REPO_NAME;
         var buildNumber = process.env.APPVEYOR_BUILD_NUMBER;
-        return "https://ci.appveyor.com/project/" + repoSlug + "/build/" + buildNumber;
+        return "https://ci.appveyor.com/project/" + repoSlug + "/build/build" + buildNumber;
     }
     return 'N/A';
 }
