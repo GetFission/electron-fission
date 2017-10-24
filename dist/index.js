@@ -78,7 +78,7 @@ function getBuildURL() {
         return process.env.BUILD_URL;
     if (isTravis()) {
         var repoSlug = process.env.TRAVIS_REPO_SLUG;
-        var jobNumber = process.env.TRAVIS_JOB_NUMBER;
+        var jobNumber = process.env.TRAVIS_JOB_ID;
         return "https://travis-ci.org/" + repoSlug + "/jobs/" + jobNumber;
     }
     if (isAppVeyor()) {

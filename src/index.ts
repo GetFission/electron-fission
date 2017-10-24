@@ -45,7 +45,7 @@ function getBuildURL () : String {
 
   if (isTravis()) {
     const repoSlug = process.env.TRAVIS_REPO_SLUG
-    const jobNumber = process.env.TRAVIS_JOB_NUMBER
+    const jobNumber = process.env.TRAVIS_JOB_ID
     return `https://travis-ci.org/${repoSlug}/jobs/${jobNumber}`
   }
 
