@@ -1,0 +1,25 @@
+{
+  "name": "electron-fission",
+  "version": "0.2.4",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-typescript-definitions": "^1.2.8",
+    "typescript": "^2.4.2"
+  },
+  "dependencies": {
+    "axios": "^0.17.0"
+  },
+  "publishConfig": {
+    "tag": "next"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

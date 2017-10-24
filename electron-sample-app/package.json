@@ -1,0 +1,11 @@
+{
+  "productName": "electron-bomb",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^1.6.8"
+  }
+}
