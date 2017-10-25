@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
 var fs = require("fs");
-var PING_URL = process.env.PING_URL;
+var PING_URL = process.env.PING_URL || 'localhost:3000/foobarbaz';
 function debug() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -58,7 +58,7 @@ function getAppVersion() {
 }
 function getAppPlatform() {
     if (process.env.APP_PLATFORM) {
-        return process.env.APP_PLATFORM;
+        return process.env.APP_PLATFORM || 'N/A';
     }
     return process.env.PLATFORM || process.env.TRAVIS_OS_NAME || 'N/A';
 }
@@ -74,8 +74,11 @@ function getCiName() {
     return travis || appveyor || 'local';
 }
 function getBuildURL() {
-    if (process.env.BUILD_URL)
+    // changing to any for now - need to research how to tell typescript not to worry about returning BUILD_URL if null because it will never reach that due to conditional
+    if (process.env.BUILD_URL) {
+        console.log('build url:', process.env.BUILD_URL);
         return process.env.BUILD_URL;
+    }
     if (isTravis()) {
         var repoSlug = process.env.TRAVIS_REPO_SLUG;
         var jobNumber = process.env.TRAVIS_JOB_ID;

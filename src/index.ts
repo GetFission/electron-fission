@@ -1,7 +1,7 @@
 import axios from 'axios'
 import * as fs from 'fs'
 
-const PING_URL = process.env.PING_URL
+const PING_URL = process.env.PING_URL || 'localhost:3000/foobarbaz'
 
 function debug (...args: any[]) {
   if (process.env.DEBUG) {
@@ -21,7 +21,7 @@ function getAppVersion () {
 
 function getAppPlatform () : String {
   if (process.env.APP_PLATFORM) {
-    return process.env.APP_PLATFORM
+    return process.env.APP_PLATFORM || 'N/A'
   }
   return process.env.PLATFORM || process.env.TRAVIS_OS_NAME || 'N/A'
 }
@@ -40,8 +40,12 @@ function getCiName () : String {
   return travis || appveyor || 'local'
 }
 
-function getBuildURL () : String {
-  if (process.env.BUILD_URL) return process.env.BUILD_URL
+function getBuildURL () : any {
+  // changing to any for now - need to research how to tell typescript not to worry about returning BUILD_URL if null because it will never reach that due to conditional
+  if (process.env.BUILD_URL) {
+    console.log('build url:', process.env.BUILD_URL)
+    return process.env.BUILD_URL
+  }
 
   if (isTravis()) {
     const repoSlug = process.env.TRAVIS_REPO_SLUG
@@ -57,7 +61,7 @@ function getBuildURL () : String {
   return 'N/A'
 }
 
-function getBuildParams () {
+function getBuildParams (): Object {
   // https://docs.travis-ci.com/user/environment-variables/
   // https://www.appveyor.com/docs/environment-variables/
   return {
