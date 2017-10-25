@@ -1,0 +1,7 @@
+test:
+  image: node:8.8.0
+  cache:
+    untracked: true
+  script:
+    - npm install
+    - npm run build
