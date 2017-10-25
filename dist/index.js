@@ -52,6 +52,7 @@ function getAppVersion() {
         return process.env.APP_VERSION;
     }
     // TODO: Verify file exists
+    // TODO: Don't hardcode in package.json path here
     var packageJson = fs.readFileSync('./app/package.json');
     var appVersion = JSON.parse(packageJson.toString()).appVersion;
     return appVersion;
@@ -107,28 +108,24 @@ function getBuildParams() {
 }
 function fissionPing() {
     return __awaiter(this, void 0, void 0, function () {
-        var buildParams, resp, _a, _b, _c, err_1;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var buildParams, resp, err_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _d.trys.push([0, 3, , 4]);
+                    _a.trys.push([0, 2, , 3]);
                     buildParams = getBuildParams();
                     debug('[PING]', 'Sending ping with build params', buildParams);
                     return [4 /*yield*/, axios_1.default.post(PING_URL, buildParams)];
                 case 1:
-                    resp = _d.sent();
-                    _b = (_a = console).log;
-                    _c = ['[PING]', 'Response'];
-                    return [4 /*yield*/, resp.data];
-                case 2:
-                    _b.apply(_a, _c.concat([_d.sent()]));
+                    resp = _a.sent();
+                    console.log('[PING]', 'Response', resp.data);
                     return [2 /*return*/, true];
-                case 3:
-                    err_1 = _d.sent();
+                case 2:
+                    err_1 = _a.sent();
                     console.log('[Error] Could not ping electron-fission server');
                     console.log('[Error]', err_1);
                     return [2 /*return*/, false];
-                case 4: return [2 /*return*/];
+                case 3: return [2 /*return*/];
             }
         });
     });

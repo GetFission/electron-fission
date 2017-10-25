@@ -14,33 +14,34 @@ function getAppVersion () {
     return process.env.APP_VERSION
   }
   // TODO: Verify file exists
+  // TODO: Don't hardcode in package.json path here
   const packageJson = fs.readFileSync('./app/package.json')
   const appVersion = JSON.parse(packageJson.toString()).appVersion
   return appVersion
 }
 
-function getAppPlatform () : String {
+function getAppPlatform (): String {
   if (process.env.APP_PLATFORM) {
     return process.env.APP_PLATFORM || 'N/A'
   }
   return process.env.PLATFORM || process.env.TRAVIS_OS_NAME || 'N/A'
 }
 
-function isTravis() : Boolean {
+function isTravis (): Boolean {
   return process.env.TRAVIS ? true : false
 }
 
-function isAppVeyor() {
+function isAppVeyor () {
   return process.env.APPVEYOR ? true : false
 }
 
-function getCiName () : String {
-  const travis =  isTravis() ? 'travis' : ''
-  const appveyor = isAppVeyor() ? 'appveyor': ''
+function getCiName (): String {
+  const travis = isTravis() ? 'travis' : ''
+  const appveyor = isAppVeyor() ? 'appveyor' : ''
   return travis || appveyor || 'local'
 }
 
-function getBuildURL () : any {
+function getBuildURL (): any {
   // changing to any for now - need to research how to tell typescript not to worry about returning BUILD_URL if null because it will never reach that due to conditional
   if (process.env.BUILD_URL) {
     console.log('build url:', process.env.BUILD_URL)
@@ -76,12 +77,12 @@ function getBuildParams (): Object {
   }
 }
 
-export async function fissionPing() {
+export async function fissionPing () {
   try {
     const buildParams = getBuildParams()
     debug('[PING]', 'Sending ping with build params', buildParams)
     const resp = await axios.post(PING_URL, buildParams)
-    console.log('[PING]', 'Response', await resp.data)
+    console.log('[PING]', 'Response', resp.data)
     return true
   } catch (err) {
     console.log('[Error] Could not ping electron-fission server')
