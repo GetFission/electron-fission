@@ -1,0 +1,15 @@
+os:
+  - osx
+  - linux
+
+language: node_js
+
+before_install:
+  - npm install
+ 
+cache:
+  directories:
+  - node_modules
+
+script:
+  - npm run build
