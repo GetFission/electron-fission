@@ -5,4 +5,5 @@ test:
   script:
     - npm install -g typescript
     - npm install
-    - npm run build
+    - tsc
+      #- npm run build
