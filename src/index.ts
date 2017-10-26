@@ -1,8 +1,6 @@
 import axios from 'axios'
 import * as fs from 'fs'
 
-const PING_URL = process.env.PING_URL || 'localhost:3000/foobarbaz'
-
 function debug (...args: any[]) {
   if (process.env.DEBUG) {
     console.log(...args)
@@ -79,6 +77,7 @@ function getBuildParams (): Object {
 
 export async function fissionPing () {
   try {
+    const PING_URL = (process.env.PING_URL || 'localhost:3000/ping')
     const buildParams = getBuildParams()
     debug('[PING]', 'Sending ping with build params', buildParams)
     const resp = await axios.post(PING_URL, buildParams)

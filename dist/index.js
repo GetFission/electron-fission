@@ -37,7 +37,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
 var fs = require("fs");
-var PING_URL = process.env.PING_URL || 'localhost:3000/foobarbaz';
 function debug() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -108,11 +107,12 @@ function getBuildParams() {
 }
 function fissionPing() {
     return __awaiter(this, void 0, void 0, function () {
-        var buildParams, resp, err_1;
+        var PING_URL, buildParams, resp, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
+                    PING_URL = (process.env.PING_URL || 'localhost:3000/ping');
                     buildParams = getBuildParams();
                     debug('[PING]', 'Sending ping with build params', buildParams);
                     return [4 /*yield*/, axios_1.default.post(PING_URL, buildParams)];
