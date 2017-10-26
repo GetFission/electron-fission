@@ -10,6 +10,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
 var child_process_1 = require("child_process");
+var fission = require("./index");
 /**
  * 1. check package.json has s3 publish info
  * 2. check publish.s3.path has proper macro info
@@ -40,7 +41,7 @@ function publish() {
     validatePackageJson(packageJson);
     var env = {};
     env = __assign({}, process.env, getEnvVars());
-    var build = child_process_1.spawn('./node_modules/.bin/build', [], { env: env });
+    var build = child_process_1.spawn('./node_modules/.bin/build', ['-p', 'always'], { env: env });
     build.stdout.on('data', function (data) {
         console.log("[Builder stdout] " + data);
     });
@@ -49,6 +50,11 @@ function publish() {
     });
     build.on('close', function (code) {
         console.log("Builder child process exited with code " + code);
+        if (code === 0) {
+            fission.fissionPing()
+                .then(function () { return console.log('[Ping] successful'); })
+                .catch(function (err) { return console.log('[Ping] Error sending ping:', err); });
+        }
     });
 }
 exports.publish = publish;
