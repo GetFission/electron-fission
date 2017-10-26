@@ -21,28 +21,13 @@ function getEnvVars () : Object{
    return {}
 }
 
-export function publish () : void {
+export function init () : void {
+  /**
+   * prepares package.json
+   */
   const packageJson = JSON.parse(fs.readFileSync('package.json').toString())
     validatePackageJson(packageJson)
 
     let env = {}
     env = {...process.env, ...getEnvVars()}
-    let build = spawn('./node_modules/.bin/build', ['-p', 'always'], {env: env})
-
-    build.stdout.on('data', (data) => {
-        console.log(`[Builder stdout] ${data}`);
-    });
-
-    build.stderr.on('data', (data) => {
-        console.log(`[Builder stderr]: ${data}`);
-    });
-
-    build.on('close', (code) => {
-        console.log(`Builder child process exited with code ${code}`);
-        if (code === 0) {
-        fission.fissionPing()
-          .then(() => console.log('[Ping] successful'))
-          .catch(err => console.log('[Ping] Error sending ping:', err))
-        }
-    });
 }
