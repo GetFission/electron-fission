@@ -10,7 +10,7 @@ cache:
 install:
   - ps: Install-Product node 8 x64
   # - git reset --hard HEAD
-  - npm install npm -g
+  - npm install -g npm@5.2.0
   - node --version
   - npm --version
   - npm install
