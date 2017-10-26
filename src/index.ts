@@ -1,8 +1,6 @@
 import axios from 'axios'
 import * as fs from 'fs'
 
-const PING_URL = process.env.PING_URL
-
 function debug (...args: any[]) {
   if (process.env.DEBUG) {
     console.log(...args)
@@ -14,34 +12,39 @@ function getAppVersion () {
     return process.env.APP_VERSION
   }
   // TODO: Verify file exists
+  // TODO: Don't hardcode in package.json path here
   const packageJson = fs.readFileSync('./app/package.json')
   const appVersion = JSON.parse(packageJson.toString()).appVersion
   return appVersion
 }
 
-function getAppPlatform () : String {
+function getAppPlatform (): String {
   if (process.env.APP_PLATFORM) {
-    return process.env.APP_PLATFORM
+    return process.env.APP_PLATFORM || 'N/A'
   }
   return process.env.PLATFORM || process.env.TRAVIS_OS_NAME || 'N/A'
 }
 
-function isTravis() : Boolean {
+function isTravis (): Boolean {
   return process.env.TRAVIS ? true : false
 }
 
-function isAppVeyor() {
+function isAppVeyor () {
   return process.env.APPVEYOR ? true : false
 }
 
-function getCiName () : String {
-  const travis =  isTravis() ? 'travis' : ''
-  const appveyor = isAppVeyor() ? 'appveyor': ''
+function getCiName (): String {
+  const travis = isTravis() ? 'travis' : ''
+  const appveyor = isAppVeyor() ? 'appveyor' : ''
   return travis || appveyor || 'local'
 }
 
-function getBuildURL () : String {
-  if (process.env.BUILD_URL) return process.env.BUILD_URL
+function getBuildURL (): any {
+  // changing to any for now - need to research how to tell typescript not to worry about returning BUILD_URL if null because it will never reach that due to conditional
+  if (process.env.BUILD_URL) {
+    console.log('build url:', process.env.BUILD_URL)
+    return process.env.BUILD_URL
+  }
 
   if (isTravis()) {
     const repoSlug = process.env.TRAVIS_REPO_SLUG
@@ -57,7 +60,7 @@ function getBuildURL () : String {
   return 'N/A'
 }
 
-function getBuildParams () {
+function getBuildParams (): Object {
   // https://docs.travis-ci.com/user/environment-variables/
   // https://www.appveyor.com/docs/environment-variables/
   return {
@@ -72,12 +75,13 @@ function getBuildParams () {
   }
 }
 
-export async function fissionPing() {
+export async function fissionPing () {
   try {
+    const PING_URL = (process.env.PING_URL || 'localhost:3000/ping')
     const buildParams = getBuildParams()
     debug('[PING]', 'Sending ping with build params', buildParams)
     const resp = await axios.post(PING_URL, buildParams)
-    console.log('[PING]', 'Response', await resp.data)
+    console.log('[PING]', 'Response', resp.data)
     return true
   } catch (err) {
     console.log('[Error] Could not ping electron-fission server')

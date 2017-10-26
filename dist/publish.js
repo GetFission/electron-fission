@@ -11,14 +11,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
 var child_process_1 = require("child_process");
 var fission = require("./index");
-/**
- * 1. check package.json has s3 publish info
- * 2. check publish.s3.path has proper macro info
- * 3. check AWS keys are in env
- * 3.5 set BRANCH/COMMIT/PLATFORM based on CI (appveyor/travis/local dev (ignore if local?))
- * 4. call electron buider with "-p always"
- * 5. ping fission
- */
 function validatePackageJson(packageJson) {
     var s3PublishInfo = packageJson.build.publish;
     console.log('Detected publish info', JSON.stringify(s3PublishInfo, null, ' '));
