@@ -5,11 +5,10 @@ os:
 language: node_js
 
 node_js:
-  - '6'
+  - '8'
 
 before_install:
   - npm install -g npm@5.2.0
-  - rm -rf node_modules
   - npm i --upgrade -g typescript
   - npm install
  
