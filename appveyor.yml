@@ -8,11 +8,12 @@ os: Previous Visual Studio 2015
 #  - node_modules
 
 install:
-  - ps: Install-Product node 8 x64
+  - ps: Install-Product node 6 x64
   # - git reset --hard HEAD
   - node --version
   - npm --version
   - npm install -g npm@5.2.0
+  - rm -rf node_modules
   - npm install
 
 build: off

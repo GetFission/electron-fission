@@ -9,6 +9,7 @@ node_js:
 
 before_install:
   - npm install -g npm@5.2.0
+  - rm -rf node_modules
   - npm install
  
 # cache:
