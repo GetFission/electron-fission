@@ -40,10 +40,10 @@ function getCiName() {
 exports.getCiName = getCiName;
 function getCommit() {
     if (isAppVeyor()) {
-        return process.env.APPVEYOR_REPO_COMMIT;
+        return process.env.APPVEYOR_REPO_COMMIT || 'N/A';
     }
     if (isTravis()) {
-        return process.env.TRAVIS_COMMIT;
+        return process.env.TRAVIS_COMMIT || 'N/A';
     }
     return child_process_1.execSync('git rev-parse HEAD')
         .toString()
@@ -52,10 +52,10 @@ function getCommit() {
 exports.getCommit = getCommit;
 function getBranch() {
     if (isAppVeyor()) {
-        return process.env.APPVEYOR_REPO_BRANCH;
+        return process.env.APPVEYOR_REPO_BRANCH || 'N/A';
     }
     if (isTravis()) {
-        return process.env.TRAVIS_COMMIT;
+        return process.env.TRAVIS_COMMIT || 'N/A';
     }
     return child_process_1.execSync('git rev-parse --abbrev-ref HEAD')
         .toString()
