@@ -22,7 +22,7 @@ describe('fission init', () => {
 
     writePublishSection(emptyTestPackageJson, publishInfo)
     const result = fs.readFileSync(emptyTestPackageJson)
-    const expected = fs.readFileSync(path.join(__dirname, 'data', 'res-empty-package.json'))
+    const expected = fs.readFileSync(path.join(__dirname, 'data', 'res-package.json'))
     expect(JSON.parse(result.toString())).to.deep.equal(JSON.parse(expected.toString()))
   })
 
@@ -40,7 +40,7 @@ describe('fission init', () => {
 
     writePublishSection(existingTestPackageJson, publishInfo)
     const result = fs.readFileSync(existingTestPackageJson)
-    const expected = fs.readFileSync(path.join(__dirname, 'data', 'res-existing-package.json'))
+    const expected = fs.readFileSync(path.join(__dirname, 'data', 'res-package.json'))
     expect(JSON.parse(result.toString())).to.deep.equal(JSON.parse(expected.toString()))
   })
 })
