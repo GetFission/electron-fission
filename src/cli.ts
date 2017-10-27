@@ -22,8 +22,6 @@ const argv = yargs
   .alias('h', 'help')
   .argv
 
-console.log(argv)
-
 if (argv._[0] === 'ping') {
   fission.fissionPing()
     .then(() => console.log('[Ping] successful'))
