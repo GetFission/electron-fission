@@ -26,7 +26,7 @@ export function isTravis(): boolean {
   return process.env.TRAVIS ? true : false
 }
 
-export function isAppVeyor() {
+export function isAppVeyor() : boolean {
   return process.env.APPVEYOR ? true : false
 }
 

@@ -20,6 +20,6 @@ describe('write env file init', () => {
 
     const result = fs.readFileSync(emptyEnvFilePath)
     const expected = fs.readFileSync(expectedEnvFilePath)
-    expect(result).to.deep.equal(expected)
+    expect(result.toString().split(os.EOL)).to.deep.equal(expected.toString().split(os.EOL))
   })
 })
