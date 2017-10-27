@@ -4,43 +4,24 @@ import * as path from 'path'
 
 import 'mocha'
 import { expect } from 'chai'
-import { writePublishSection } from '../src/init'
+import { writeElectronBuilderEnvFile } from '../src/prep'
 
 
-describe('fission init', () => {
+describe('write env file init', () => {
   it('initalizes empty package.json', () => {
-    const emptyPackageJson = path.join(__dirname, 'data', 'empty-package.json')
-    const emptyTestPackageJson = path.join(os.tmpdir(), 'empty-package.json')
-    // copy test file to temp dir
-    fs.writeFileSync(emptyTestPackageJson, fs.readFileSync(emptyPackageJson))
-
-    const publishInfo = {
-      provider: "s3",
-      bucket: "sample-bucket",
-      path: '${env.BRANCH}/${env.COMMIT}/${env.PLATFORM}'
+    const emptyEnvFilePath = path.join(os.tmpdir(), 'electron-builder.env')
+    if (fs.existsSync(emptyEnvFilePath)) {
+      fs.unlinkSync(emptyEnvFilePath)
     }
+    const expectedEnvFilePath = path.join(__dirname, 'data', 'electron-builder.env')
 
-    writePublishSection(emptyTestPackageJson, publishInfo)
-    const result = fs.readFileSync(emptyTestPackageJson)
-    const expected = fs.readFileSync(path.join(__dirname, 'data', 'res-package.json'))
-    expect(JSON.parse(result.toString())).to.deep.equal(JSON.parse(expected.toString()))
-  })
+    const envVars = new Map([["COMMIT", "foo"], ["BRANCH", "bar"]])
+    writeElectronBuilderEnvFile(emptyEnvFilePath, envVars)
 
-  it('initalizes existing package.json', () => {
-    const existingPackageJson = path.join(__dirname, 'data', 'existing-package.json')
-    const existingTestPackageJson = path.join(os.tmpdir(), 'existing-package.json')
-    // copy test file to temp dir
-    fs.writeFileSync(existingTestPackageJson, fs.readFileSync(existingPackageJson))
-
-    const publishInfo = {
-      provider: "s3",
-      bucket: "sample-bucket",
-      path: '${env.BRANCH}/${env.COMMIT}/${env.PLATFORM}'
-    }
-
-    writePublishSection(existingTestPackageJson, publishInfo)
-    const result = fs.readFileSync(existingTestPackageJson)
-    const expected = fs.readFileSync(path.join(__dirname, 'data', 'res-package.json'))
-    expect(JSON.parse(result.toString())).to.deep.equal(JSON.parse(expected.toString()))
+    const result = fs.readFileSync(emptyEnvFilePath)
+    const expected = fs.readFileSync(expectedEnvFilePath)
+    console.log(result.toString())
+    console.log(expected.toString())
+    expect(result).to.deep.equal(expected)
   })
 })
