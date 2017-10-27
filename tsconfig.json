@@ -11,6 +11,10 @@
   "include": [
     "src/*.ts",
     "src/*.js",
+    "test/*.ts",
     "./typings/*.d.ts"
+  ],
+  "exclude": [
+    "test/*.ts"
   ]
 }
