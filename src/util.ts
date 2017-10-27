@@ -38,10 +38,10 @@ export function getCiName(): string {
 
 export function getCommit () : string {
   if (isAppVeyor()) {
-    return process.env.APPVEYOR_REPO_COMMIT
+    return process.env.APPVEYOR_REPO_COMMIT || 'N/A'
   }
   if (isTravis()) {
-    return process.env.TRAVIS_COMMIT 
+    return process.env.TRAVIS_COMMIT || 'N/A'
   }
   return execSync('git rev-parse HEAD')
     .toString()
@@ -50,10 +50,10 @@ export function getCommit () : string {
 
 export function getBranch () : string {
   if (isAppVeyor()) {
-    return process.env.APPVEYOR_REPO_BRANCH
+    return process.env.APPVEYOR_REPO_BRANCH || 'N/A'
   }
   if (isTravis()) {
-    return process.env.TRAVIS_COMMIT 
+    return process.env.TRAVIS_COMMIT || 'N/A'
   }
   return execSync('git rev-parse --abbrev-ref HEAD')
     .toString()
