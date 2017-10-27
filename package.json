@@ -13,6 +13,7 @@
   "devDependencies": {
     "@types/chai": "^4.0.4",
     "@types/mocha": "^2.2.43",
+    "@types/node": "^8.0.47",
     "chai": "^4.1.2",
     "electron-typescript-definitions": "^1.2.8",
     "mocha": "^4.0.1",
@@ -22,8 +23,11 @@
     "typescript": "^2.4.2"
   },
   "dependencies": {
-    "@types/nock": "^8.2.1",
-    "axios": "^0.17.0"
+    "@types/detect-indent": "^5.0.0",
+    "@types/yargs": "^8.0.2",
+    "axios": "^0.17.0",
+    "detect-indent": "^5.0.0",
+    "yargs": "^10.0.3"
   },
   "publishConfig": {
     "tag": "next"
@@ -33,7 +37,6 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepublish": "npm run build",
     "test": "mocha -r ts-node/register test/*.spec.ts"
   }
 }

@@ -13,10 +13,12 @@ install:
   - node --version
   - npm --version
   - npm install -g npm@5.2.0
+  - npm i --upgrade -g typescript
   - npm install
 
 build: off
 
 test_script:
+  - tsc --version
   - npm run build
   - npm run test
