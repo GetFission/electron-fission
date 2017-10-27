@@ -1,0 +1,22 @@
+version: build{build}
+
+platform:
+  - x64
+os: Previous Visual Studio 2015
+
+# cache:
+#  - node_modules
+
+install:
+  - ps: Install-Product node 8 x64
+  # - git reset --hard HEAD
+  - node --version
+  - npm --version
+  - npm install -g npm@5.2.0
+  - npm install
+
+build: off
+
+test_script:
+  - npm run build
+  - npm run test

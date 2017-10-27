@@ -1,0 +1,20 @@
+os:
+  - osx
+  - linux
+
+language: node_js
+
+node_js:
+  - '8'
+
+before_install:
+  - npm install -g npm@5.2.0
+  - npm install
+ 
+cache:
+  directories:
+  - node_modules
+
+script:
+  - npm run build
+  - npm run test

@@ -2,4 +2,4 @@
 
 import * as fission from './index'
 
-fission.fissionPing()
+fission.fissionPing().then(() => console.log('[PING] Finished ping'))

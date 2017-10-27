@@ -3,16 +3,26 @@
   "version": "0.2.4",
   "description": "",
   "main": "dist/index.js",
-  "files": ["dist/cli.js"],
+  "files": [
+    "dist/cli.js"
+  ],
   "types": "dist/index.d.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.43",
+    "chai": "^4.1.2",
     "electron-typescript-definitions": "^1.2.8",
+    "mocha": "^4.0.1",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.8.0",
+    "tslint-config-standard": "^6.0.1",
     "typescript": "^2.4.2"
   },
   "dependencies": {
+    "@types/nock": "^8.2.1",
     "axios": "^0.17.0"
   },
   "publishConfig": {
@@ -24,6 +34,6 @@
   "scripts": {
     "build": "tsc",
     "prepublish": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r ts-node/register test/*.spec.ts"
   }
 }
