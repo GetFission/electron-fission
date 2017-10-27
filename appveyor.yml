@@ -18,5 +18,6 @@ install:
 build: off
 
 test_script:
+  - tsc --version
   - npm run build
   - npm run test
