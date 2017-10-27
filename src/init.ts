@@ -1,5 +1,6 @@
-import * as fs from 'fs'
+
 import { spawn } from 'child_process'
+import * as fs from 'fs'
 import * as detectIndent from 'detect-indent'
 
 import * as fission from './index'
