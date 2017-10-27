@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var child_process_1 = require("child_process");
+var os = require("os");
 function validatePackageJson(packageJson) {
     var s3PublishInfo = packageJson.build.publish;
     console.log('Detected publish info', JSON.stringify(s3PublishInfo, null, ' '));
@@ -20,7 +21,7 @@ function getAppPlatform() {
     if (process.env.APP_PLATFORM) {
         return process.env.APP_PLATFORM || 'N/A';
     }
-    return process.env.PLATFORM || process.env.TRAVIS_OS_NAME || 'N/A';
+    return process.env.PLATFORM || process.env.TRAVIS_OS_NAME || os.platform();
 }
 exports.getAppPlatform = getAppPlatform;
 function isTravis() {
@@ -51,17 +52,18 @@ function getCommit() {
 exports.getCommit = getCommit;
 function getBranch() {
     if (isAppVeyor()) {
-        return process.env.APPVEYOR_REPO_COMMIT;
+        return process.env.APPVEYOR_REPO_BRANCH;
     }
     if (isTravis()) {
         return process.env.TRAVIS_COMMIT;
     }
-    return child_process_1.execSync('git rev-parse HEAD')
+    return child_process_1.execSync('git rev-parse --abbrev-ref HEAD')
         .toString()
         .trim();
 }
 exports.getBranch = getBranch;
 function getPlatform() {
-    return '';
+    // TODO: differentiate between app platform vs ci platform?
+    return getAppPlatform();
 }
 exports.getPlatform = getPlatform;

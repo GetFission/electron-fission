@@ -11,8 +11,9 @@ function getEnvVars() {
 }
 exports.getEnvVars = getEnvVars;
 function writeElectronBuilderEnvFile(path, envVars) {
-    envVars.forEach(function (key, val) {
-        fs.appendFileSync(path, key + "=" + val);
+    envVars.forEach(function (val, key) {
+        // console.log('key', key, 'val', val)
+        fs.appendFileSync(path, key + "=" + val + "\n");
     });
 }
 exports.writeElectronBuilderEnvFile = writeElectronBuilderEnvFile;

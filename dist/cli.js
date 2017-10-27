@@ -9,8 +9,9 @@ var init = require("./init");
 var argv = yargs
     .usage('Usage: fission <command> [options]')
     .command('ping', 'Notifies fission server of build')
-    .command('init', 'Initializes package.json for electron-fission')
-    .demand('bucket')
+    .command('init', 'Initializes package.json for electron-fission', function (yarg) {
+    return yarg.demand('bucket');
+})
     .example('fission --bucket my-s3-bucket', 'Initialize package.json with a bucket')
     .example('fission init --path custom/path/to/package.json', 'Specify path to package.json')
     .command('prep', 'Prepare dir for electron-builder publish. Run before starting electron-builder')

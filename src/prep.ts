@@ -14,8 +14,9 @@ export function getEnvVars () : Map <string, string> {
 }
 
 export function writeElectronBuilderEnvFile (path : string, envVars : Map <string, string>) {
-  envVars.forEach((key, val) => {
-    fs.appendFileSync(path, `${key}=${val}`)
+  envVars.forEach((val, key) => {
+    // console.log('key', key, 'val', val)
+    fs.appendFileSync(path, `${key}=${val}\n`)
   })
 }
 
