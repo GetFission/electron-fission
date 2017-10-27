@@ -22,8 +22,9 @@
     "typescript": "^2.4.2"
   },
   "dependencies": {
-    "@types/nock": "^8.2.1",
-    "axios": "^0.17.0"
+    "@types/yargs": "^8.0.2",
+    "axios": "^0.17.0",
+    "yargs": "^10.0.3"
   },
   "publishConfig": {
     "tag": "next"

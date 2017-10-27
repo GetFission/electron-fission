@@ -3,12 +3,14 @@
     "lib": ["es2015"],
     "target": "es5",
     "module": "commonjs",
-    "declaration": true,
+    "declaration": false,
     "outDir": "./dist",
+    "allowJs": true,
     "strict": true
   },
   "include": [
     "src/*.ts",
+    "src/*.js",
     "./typings/*.d.ts"
   ]
 }
