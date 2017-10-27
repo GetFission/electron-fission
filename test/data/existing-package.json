@@ -1,0 +1,74 @@
+{
+  "build": {
+    "appId": "org.zulip.zulip-electron",
+    "asar": true,
+    "files": [
+      "**/*",
+      "!docs${/*}",
+      "!node_modules/@paulcbetts/cld/deps/cld${/*}"
+    ],
+    "copyright": "©2017 Kandra Labs, Inc.",
+    "mac": {
+      "target": [
+        "zip"
+      ],
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "category": "Chat;GNOME;GTK;Network;InstantMessaging",
+      "packageCategory": "GNOME;GTK;Network;InstantMessaging",
+      "description": "Zulip Desktop Client for Linux",
+      "target": [
+        "deb",
+        "zip",
+        "AppImage"
+      ],
+      "maintainer": "Akash Nimare <svnitakash@gmail.com>"
+    },
+    "deb": {
+      "synopsis": "Zulip Desktop App"
+    },
+    "dmg": {
+      "background": "build/appdmg.png",
+      "icon": "build/icon.icns",
+      "iconSize": 128,
+      "contents": [
+        {
+          "x": 380,
+          "y": 240,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 122,
+          "y": 240,
+          "type": "file"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis-web",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "publisherName": "Kandra Labs, Inc."
+    },
+    "nsis": {
+      "perMachine": true,
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "publish": {
+      "provider": "s3",
+      "bucket": "some-data",
+      "path": "some-path"
+    }
+  },
+  "dependencies": {}
+}
