@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
+var os = require("os");
 var util = require("./util");
 function getEnvVars() {
     var map = new Map();
@@ -11,10 +12,11 @@ function getEnvVars() {
 }
 exports.getEnvVars = getEnvVars;
 function writeElectronBuilderEnvFile(path, envVars) {
+    var fileLines = [];
     envVars.forEach(function (val, key) {
-        // console.log('key', key, 'val', val)
-        fs.appendFileSync(path, key + "=" + val + "\n");
+        fileLines.push(key + "=" + val + os.EOL);
     });
+    fs.appendFileSync(path, fileLines.join(''));
 }
 exports.writeElectronBuilderEnvFile = writeElectronBuilderEnvFile;
 function prep(envFilePath) {

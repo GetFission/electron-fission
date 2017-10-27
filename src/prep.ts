@@ -1,5 +1,7 @@
 import { spawn } from 'child_process'
 import * as fs from 'fs'
+import * as os from 'os'
+
 import * as detectIndent from 'detect-indent'
 
 import * as fission from './index'
@@ -14,10 +16,11 @@ export function getEnvVars () : Map <string, string> {
 }
 
 export function writeElectronBuilderEnvFile (path : string, envVars : Map <string, string>) {
+  const fileLines: string[] = []
   envVars.forEach((val, key) => {
-    // console.log('key', key, 'val', val)
-    fs.appendFileSync(path, `${key}=${val}\n`)
+    fileLines.push(`${key}=${val}${os.EOL}`)
   })
+  fs.appendFileSync(path, fileLines.join(''))
 }
 
 export function prep (envFilePath : string) {
