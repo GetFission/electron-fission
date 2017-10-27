@@ -30,10 +30,11 @@ if (argv._[0] === 'ping') {
 }
 
 if (argv._[0] === 'init') {
-  const packageJsonPath = argv.path || path.join(process.cwd(), 'pakcage.json')
+  const packageJsonPath = argv.path || path.join(process.cwd(), 'package.json')
   init.init(packageJsonPath, argv.bucket)
 }
 
 if (argv._[0] === 'prep') {
-  prep.prep()
+  const electronBuilderEnvFilePath = argv.path || path.join(process.cwd(), 'electron-builder.env')
+  prep.prep(electronBuilderEnvFilePath)
 }

@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
 var fs = require("fs");
+var util = require("./util");
 function debug() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -56,35 +57,18 @@ function getAppVersion() {
     var appVersion = JSON.parse(packageJson.toString()).appVersion;
     return appVersion;
 }
-function getAppPlatform() {
-    if (process.env.APP_PLATFORM) {
-        return process.env.APP_PLATFORM || 'N/A';
-    }
-    return process.env.PLATFORM || process.env.TRAVIS_OS_NAME || 'N/A';
-}
-function isTravis() {
-    return process.env.TRAVIS ? true : false;
-}
-function isAppVeyor() {
-    return process.env.APPVEYOR ? true : false;
-}
-function getCiName() {
-    var travis = isTravis() ? 'travis' : '';
-    var appveyor = isAppVeyor() ? 'appveyor' : '';
-    return travis || appveyor || 'local';
-}
 function getBuildURL() {
     // changing to any for now - need to research how to tell typescript not to worry about returning BUILD_URL if null because it will never reach that due to conditional
     if (process.env.BUILD_URL) {
         console.log('build url:', process.env.BUILD_URL);
         return process.env.BUILD_URL;
     }
-    if (isTravis()) {
+    if (util.isTravis()) {
         var repoSlug = process.env.TRAVIS_REPO_SLUG;
         var jobNumber = process.env.TRAVIS_JOB_ID;
         return "https://travis-ci.org/" + repoSlug + "/jobs/" + jobNumber;
     }
-    if (isAppVeyor()) {
+    if (util.isAppVeyor()) {
         var repoSlug = process.env.APPVEYOR_REPO_NAME;
         var buildNumber = process.env.APPVEYOR_BUILD_NUMBER;
         return "https://ci.appveyor.com/project/" + repoSlug + "/build/build" + buildNumber;
@@ -98,10 +82,10 @@ function getBuildParams() {
         app_version: getAppVersion(),
         build_url: getBuildURL(),
         branch_name: process.env.TRAVIS_BRANCH || process.env.APPVEYOR_REPO_BRANCH || 'N/A',
-        ci: getCiName(),
+        ci: util.getCiName(),
         ci_job_id: process.env.TRAVIS_JOB_ID || process.env.APPVEYOR_JOB_ID || 'N/A',
         commit_hash: process.env.TRAVIS_COMMIT || process.env.APPVEYOR_REPO_COMMIT || 'N/A',
-        platform: getAppPlatform(),
+        platform: util.getAppPlatform(),
         pull_request_number: process.env.TRAVIS_PULL_REQUEST || process.env.APPVEYOR_PULL_REQUEST_NUMBER
     };
 }

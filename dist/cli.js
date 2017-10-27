@@ -25,9 +25,10 @@ if (argv._[0] === 'ping') {
         .catch(function (err) { return console.log('[Ping] Error sending ping:', err); });
 }
 if (argv._[0] === 'init') {
-    var packageJsonPath = argv.path || path.join(process.cwd(), 'pakcage.json');
+    var packageJsonPath = argv.path || path.join(process.cwd(), 'package.json');
     init.init(packageJsonPath, argv.bucket);
 }
 if (argv._[0] === 'prep') {
-    prep.prep();
+    var electronBuilderEnvFilePath = argv.path || path.join(process.cwd(), 'electron-builder.env');
+    prep.prep(electronBuilderEnvFilePath);
 }
