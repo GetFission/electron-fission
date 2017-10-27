@@ -22,8 +22,10 @@
     "typescript": "^2.4.2"
   },
   "dependencies": {
+    "@types/detect-indent": "^5.0.0",
     "@types/yargs": "^8.0.2",
     "axios": "^0.17.0",
+    "detect-indent": "^5.0.0",
     "yargs": "^10.0.3"
   },
   "publishConfig": {
