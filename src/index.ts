@@ -57,7 +57,7 @@ function getBuildParams(): Object {
 
 export async function fissionPing() {
   try {
-    const PING_URL = (process.env.PING_URL || 'localhost:3000/ping')
+    const PING_URL = (process.env.PING_URL || 'https://getfission.com/review-apps/ping')
     const buildParams = getBuildParams()
     debug('[PING]', 'Sending ping with build params', buildParams)
     const resp = await axios.post(PING_URL, buildParams)

@@ -96,7 +96,7 @@ function fissionPing() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    PING_URL = (process.env.PING_URL || 'localhost:3000/ping');
+                    PING_URL = (process.env.PING_URL || 'https://getfission.com/review-apps/ping');
                     buildParams = getBuildParams();
                     debug('[PING]', 'Sending ping with build params', buildParams);
                     return [4 /*yield*/, axios_1.default.post(PING_URL, buildParams)];
