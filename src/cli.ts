@@ -25,7 +25,7 @@ const argv = yargs
 if (argv._[0] === 'ping') {
   fission.fissionPing()
     .then(() => console.log('[Ping] successful'))
-    .catch(err => console.log('[Ping] Error sending ping:', err))
+    .catch(err => console.log('[Ping] Error sending ping', err.toString()))
 }
 
 if (argv._[0] === 'init') {

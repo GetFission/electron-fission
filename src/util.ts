@@ -33,7 +33,7 @@ export function isAppVeyor() : boolean {
 export function getCiName(): string {
   const travis = isTravis() ? 'travis' : ''
   const appveyor = isAppVeyor() ? 'appveyor' : ''
-  return travis || appveyor || 'local'
+  return travis || appveyor || 'N/A'
 }
 
 export function getCommit () : string {

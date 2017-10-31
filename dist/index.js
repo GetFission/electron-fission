@@ -78,37 +78,41 @@ function getBuildURL() {
 function getBuildParams() {
     // https://docs.travis-ci.com/user/environment-variables/
     // https://www.appveyor.com/docs/environment-variables/
-    return {
-        app_version: getAppVersion(),
-        build_url: getBuildURL(),
-        branch_name: process.env.TRAVIS_BRANCH || process.env.APPVEYOR_REPO_BRANCH || 'N/A',
-        ci: util.getCiName(),
-        ci_job_id: process.env.TRAVIS_JOB_ID || process.env.APPVEYOR_JOB_ID || 'N/A',
-        commit_hash: process.env.TRAVIS_COMMIT || process.env.APPVEYOR_REPO_COMMIT || 'N/A',
-        platform: util.getAppPlatform(),
-        pull_request_number: process.env.TRAVIS_PULL_REQUEST || process.env.APPVEYOR_PULL_REQUEST_NUMBER
-    };
+    var params = new Map();
+    params.set('api_key', process.env.API_KEY);
+    params.set('app_version', getAppVersion());
+    params.set('api_key', process.env.API_KEY);
+    params.set('api_key', process.env.API_KEY);
+    params.set('build_url', getBuildURL());
+    params.set('branch_name', process.env.TRAVIS_BRANCH || process.env.APPVEYOR_REPO_BRANCH || 'N/A');
+    params.set('ci', util.getCiName());
+    params.set('ci_job_id', process.env.TRAVIS_JOB_ID || process.env.APPVEYOR_JOB_ID || 'N/A');
+    params.set('commit_hash', process.env.TRAVIS_COMMIT || process.env.APPVEYOR_REPO_COMMIT || 'N/A');
+    params.set('platform', util.getAppPlatform());
+    params.set('pull_request_number', process.env.TRAVIS_PULL_REQUEST || process.env.APPVEYOR_PULL_REQUEST_NUMBER);
+    return params;
 }
 function fissionPing() {
     return __awaiter(this, void 0, void 0, function () {
-        var PING_URL, buildParams, resp, err_1;
+        var PING_URL, buildParams, buildParamsLog, paramsObject_1, resp, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     PING_URL = (process.env.PING_URL || 'https://getfission.com/review-apps/ping');
                     buildParams = getBuildParams();
-                    debug('[PING]', 'Sending ping with build params', buildParams);
-                    return [4 /*yield*/, axios_1.default.post(PING_URL, buildParams)];
+                    buildParamsLog = new Map(buildParams.entries());
+                    buildParamsLog.delete('api_key');
+                    debug('[PING]', 'Sending ping with build params', buildParamsLog);
+                    paramsObject_1 = {};
+                    buildParams.forEach(function (value, key) { paramsObject_1[key] = value; });
+                    return [4 /*yield*/, axios_1.default.post(PING_URL, paramsObject_1)];
                 case 1:
                     resp = _a.sent();
-                    console.log('[PING]', 'Response', resp.data);
                     return [2 /*return*/, true];
                 case 2:
                     err_1 = _a.sent();
-                    console.log('[Error] Could not ping electron-fission server');
-                    console.log('[Error]', err_1);
-                    return [2 /*return*/, false];
+                    throw new Error(JSON.stringify(err_1.response.data, null, ' '));
                 case 3: return [2 /*return*/];
             }
         });

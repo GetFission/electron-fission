@@ -22,7 +22,7 @@ var argv = yargs
 if (argv._[0] === 'ping') {
     fission.fissionPing()
         .then(function () { return console.log('[Ping] successful'); })
-        .catch(function (err) { return console.log('[Ping] Error sending ping:', err); });
+        .catch(function (err) { return console.log('[Ping] Error sending ping', err.toString()); });
 }
 if (argv._[0] === 'init') {
     var packageJsonPath = argv.path || path.join(process.cwd(), 'package.json');

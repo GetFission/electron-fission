@@ -35,7 +35,7 @@ exports.isAppVeyor = isAppVeyor;
 function getCiName() {
     var travis = isTravis() ? 'travis' : '';
     var appveyor = isAppVeyor() ? 'appveyor' : '';
-    return travis || appveyor || 'local';
+    return travis || appveyor || 'N/A';
 }
 exports.getCiName = getCiName;
 function getCommit() {

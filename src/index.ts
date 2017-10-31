@@ -40,32 +40,37 @@ function getBuildURL(): any {
   return 'N/A'
 }
 
-function getBuildParams(): Object {
+function getBuildParams(): Map<string, string> {
   // https://docs.travis-ci.com/user/environment-variables/
   // https://www.appveyor.com/docs/environment-variables/
-  return {
-    app_version: getAppVersion(),
-    build_url: getBuildURL(),
-    branch_name: process.env.TRAVIS_BRANCH || process.env.APPVEYOR_REPO_BRANCH || 'N/A',
-    ci: util.getCiName(),
-    ci_job_id: process.env.TRAVIS_JOB_ID || process.env.APPVEYOR_JOB_ID || 'N/A',
-    commit_hash: process.env.TRAVIS_COMMIT || process.env.APPVEYOR_REPO_COMMIT || 'N/A',
-    platform: util.getAppPlatform(),
-    pull_request_number: process.env.TRAVIS_PULL_REQUEST || process.env.APPVEYOR_PULL_REQUEST_NUMBER
-  }
+  const params = new Map();
+  params.set('api_key', process.env.API_KEY)
+  params.set('app_version', getAppVersion())
+  params.set('api_key', process.env.API_KEY)
+  params.set('api_key', process.env.API_KEY)
+  params.set('build_url', getBuildURL())
+  params.set('branch_name', process.env.TRAVIS_BRANCH || process.env.APPVEYOR_REPO_BRANCH || 'N/A')
+  params.set('ci', util.getCiName())
+  params.set('ci_job_id', process.env.TRAVIS_JOB_ID || process.env.APPVEYOR_JOB_ID || 'N/A')
+  params.set('commit_hash', process.env.TRAVIS_COMMIT || process.env.APPVEYOR_REPO_COMMIT || 'N/A')
+  params.set('platform', util.getAppPlatform())
+  params.set('pull_request_number', process.env.TRAVIS_PULL_REQUEST || process.env.APPVEYOR_PULL_REQUEST_NUMBER)
+  return params
 }
 
 export async function fissionPing() {
   try {
     const PING_URL = (process.env.PING_URL || 'https://getfission.com/review-apps/ping')
     const buildParams = getBuildParams()
-    debug('[PING]', 'Sending ping with build params', buildParams)
-    const resp = await axios.post(PING_URL, buildParams)
-    console.log('[PING]', 'Response', resp.data)
+    const buildParamsLog = new Map(buildParams.entries())
+    buildParamsLog.delete('api_key')
+    debug('[PING]', 'Sending ping with build params', buildParamsLog)
+
+    const paramsObject : {[key : string]: string} = {}
+    buildParams.forEach((value, key) => {paramsObject[key] = value})
+    const resp = await axios.post(PING_URL, paramsObject)
     return true
   } catch (err) {
-    console.log('[Error] Could not ping electron-fission server')
-    console.log('[Error]', err)
-    return false
+    throw new Error(JSON.stringify(err.response.data, null, ' '))
   }
 }
