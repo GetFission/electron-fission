@@ -60,3 +60,14 @@ Then you can just run,
 npm run fission-publish
 ```
 
+
+## CI Configuration
+
+For your Mac, Windows, and Linux CIs configure the following secrent env variables in order for fission review apps to be visible on your getfission.com dashboard,
+
+* `API_KEY` - used by `electron-fission` to update your `review apps` dashboard
+* `AWS_ACCESS_KEY_ID` - used by `electron-builder` to publish to S3
+* `AWS_SECRET_ACCESS_KEY` - used by `electron-builder` to publish to S3
+
+Go to https://getfission.com to get an API_KEY
+
