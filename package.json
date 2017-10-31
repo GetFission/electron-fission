@@ -33,7 +33,7 @@
     "tag": "next"
   },
   "bin": {
-    "fission-ping": "./dist/cli.js"
+    "fission": "./dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
