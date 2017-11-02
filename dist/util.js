@@ -55,7 +55,7 @@ function getBranch() {
         return process.env.APPVEYOR_REPO_BRANCH || 'N/A';
     }
     if (isTravis()) {
-        return process.env.TRAVIS_COMMIT || 'N/A';
+        return process.env.TRAVIS_BRANCH || 'N/A';
     }
     return child_process_1.execSync('git rev-parse --abbrev-ref HEAD')
         .toString()
