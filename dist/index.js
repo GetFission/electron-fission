@@ -84,7 +84,7 @@ function getBuildParams() {
     params.set('api_key', process.env.API_KEY);
     params.set('api_key', process.env.API_KEY);
     params.set('build_url', getBuildURL());
-    params.set('branch_name', process.env.TRAVIS_BRANCH || process.env.APPVEYOR_REPO_BRANCH || 'N/A');
+    params.set('branch', process.env.TRAVIS_BRANCH || process.env.APPVEYOR_REPO_BRANCH || 'N/A');
     params.set('ci', util.getCiName());
     params.set('ci_job_id', process.env.TRAVIS_JOB_ID || process.env.APPVEYOR_JOB_ID || 'N/A');
     params.set('commit_hash', process.env.TRAVIS_COMMIT || process.env.APPVEYOR_REPO_COMMIT || 'N/A');
