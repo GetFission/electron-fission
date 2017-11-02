@@ -22,13 +22,28 @@ var argv = yargs
 if (argv._[0] === 'ping') {
     fission.fissionPing()
         .then(function () { return console.log('[Ping] successful'); })
-        .catch(function (err) { return console.log('[Ping] Error sending ping', err.toString()); });
+        .catch(function (err) {
+        console.log('[Ping] Failed to "ping".', err.toString());
+        process.exit(1);
+    });
 }
 if (argv._[0] === 'init') {
     var packageJsonPath = argv.path || path.join(process.cwd(), 'package.json');
-    init.init(packageJsonPath, argv.bucket);
+    try {
+        init.init(packageJsonPath, argv.bucket);
+    }
+    catch (err) {
+        console.log('Failed to "init".', err.toString());
+        process.exit(1);
+    }
 }
 if (argv._[0] === 'prep') {
     var electronBuilderEnvFilePath = argv.path || path.join(process.cwd(), 'electron-builder.env');
-    prep.prep(electronBuilderEnvFilePath);
+    try {
+        prep.prep(electronBuilderEnvFilePath);
+    }
+    catch (err) {
+        console.log('Failed to "prep".', err.toString());
+        process.exit(1);
+    }
 }
