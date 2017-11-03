@@ -2,11 +2,11 @@
   "name": "electron-fission",
   "version": "0.2.4",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/ping.js",
   "files": [
     "dist/*.js"
   ],
-  "types": "dist/index.d.ts",
+  "types": "dist/init.d.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",

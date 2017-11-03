@@ -58,7 +58,7 @@ function getBuildParams(): Map<string, string> {
   return params
 }
 
-export async function fissionPing() {
+export async function ping () {
   try {
     const PING_URL = (process.env.PING_URL || 'https://getfission.com/review-apps/ping')
     const buildParams = getBuildParams()

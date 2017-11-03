@@ -3,7 +3,7 @@
 import * as yargs from 'yargs'
 
 import * as path from 'path'
-import * as fission from './index'
+import * as fission from './ping'
 import * as prep from './prep'
 import * as init from './init'
 
@@ -23,7 +23,7 @@ const argv = yargs
   .argv
 
 if (argv._[0] === 'ping') {
-  fission.fissionPing()
+  fission.ping()
     .then(() => console.log('[Ping] successful'))
     .catch(err => {
       console.log('[Ping] Failed to "ping".', err.toString())

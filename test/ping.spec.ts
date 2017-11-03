@@ -1,6 +1,6 @@
 import 'mocha'
 import { expect } from 'chai'
-import { fissionPing } from '../src/index'
+import { ping } from '../src/ping'
 
 
 describe('fission ping', () => {

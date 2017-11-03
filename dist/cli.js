@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var yargs = require("yargs");
 var path = require("path");
-var fission = require("./index");
+var fission = require("./ping");
 var prep = require("./prep");
 var init = require("./init");
 var argv = yargs
@@ -20,7 +20,7 @@ var argv = yargs
     .alias('h', 'help')
     .argv;
 if (argv._[0] === 'ping') {
-    fission.fissionPing()
+    fission.ping()
         .then(function () { return console.log('[Ping] successful'); })
         .catch(function (err) {
         console.log('[Ping] Failed to "ping".', err.toString());

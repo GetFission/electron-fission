@@ -3,8 +3,6 @@ import { spawn } from 'child_process'
 import * as fs from 'fs'
 import * as detectIndent from 'detect-indent'
 
-import * as fission from './index'
-
 export function writePublishSection (packageJsonPath : string, publishInfo : Object) {
   const file = fs.readFileSync(packageJsonPath).toString()
   const indent = detectIndent(file).indent 
