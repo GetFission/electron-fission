@@ -33,7 +33,7 @@ export function isAppVeyor() : boolean {
 export function getCiName(): string {
   const travis = isTravis() ? 'travis' : ''
   const appveyor = isAppVeyor() ? 'appveyor' : ''
-  return travis || appveyor || 'local'
+  return travis || appveyor || 'N/A'
 }
 
 export function getCommit () : string {
@@ -53,7 +53,7 @@ export function getBranch () : string {
     return process.env.APPVEYOR_REPO_BRANCH || 'N/A'
   }
   if (isTravis()) {
-    return process.env.TRAVIS_COMMIT || 'N/A'
+    return process.env.TRAVIS_BRANCH || 'N/A'
   }
   return execSync('git rev-parse --abbrev-ref HEAD')
     .toString()

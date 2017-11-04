@@ -4,7 +4,6 @@ import * as os from 'os'
 
 import * as detectIndent from 'detect-indent'
 
-import * as fission from './index'
 import * as util from './util'
 
 export function getEnvVars () : Map <string, string> {

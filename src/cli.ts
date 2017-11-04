@@ -3,7 +3,7 @@
 import * as yargs from 'yargs'
 
 import * as path from 'path'
-import * as fission from './index'
+import * as fission from './ping'
 import * as prep from './prep'
 import * as init from './init'
 
@@ -23,17 +23,30 @@ const argv = yargs
   .argv
 
 if (argv._[0] === 'ping') {
-  fission.fissionPing()
+  fission.ping()
     .then(() => console.log('[Ping] successful'))
-    .catch(err => console.log('[Ping] Error sending ping:', err))
+    .catch(err => {
+      console.log('[Ping] Failed to "ping".', err.toString())
+      process.exit(1)
+    })
 }
 
 if (argv._[0] === 'init') {
   const packageJsonPath = argv.path || path.join(process.cwd(), 'package.json')
-  init.init(packageJsonPath, argv.bucket)
+  try {
+    init.init(packageJsonPath, argv.bucket)
+  } catch (err) {
+    console.log('Failed to "init".', err.toString())
+    process.exit(1)
+  }
 }
 
 if (argv._[0] === 'prep') {
   const electronBuilderEnvFilePath = argv.path || path.join(process.cwd(), 'electron-builder.env')
-  prep.prep(electronBuilderEnvFilePath)
+  try{
+    prep.prep(electronBuilderEnvFilePath)
+  } catch (err) {
+    console.log('Failed to "prep".', err.toString())
+    process.exit(1)
+  }
 }
