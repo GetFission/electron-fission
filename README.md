@@ -1,8 +1,7 @@
+[![Build Status](https://travis-ci.org/GetFission/electron-fission.svg?branch=master)](https://travis-ci.org/GetFission/electron-fission)
+[![Build Status](https://ci.appveyor.com/project/levthedev/electron-fission/branch/master?svg=true)](https://ci.appveyor.com/project/levthedev/electron-fission/)
 
 
-[https://travis-ci.org/GetFission/electron-fission.svg?branch=master](https://travis-ci.org/GetFission/electron-fission.svg?branch=master)
-
-[https://ci.appveyor.com/project/myaccount/myproject/branch/master?svg=true](https://ci.appveyor.com/project/myaccount/myproject/branch/master?svg=true)
 
 ## Install
 
