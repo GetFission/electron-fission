@@ -1,6 +1,6 @@
 [![Travis](https://travis-ci.org/GetFission/electron-fission.svg?branch=master)](https://travis-ci.org/GetFission/electron-fission)
 
-[![Appveyor](https://ci.appveyor.com/project/levthedev/electron-fission/branch/master?svg=true)](https://ci.appveyor.com/project/levthedev/electron-fission/)
+[![Appveyor](https://ci.appveyor.com/api/projects/status/hkyq44jaeakkwf86/branch/master?svg=true)](https://ci.appveyor.com/project/levthedev/electron-fission)
 
 
 
