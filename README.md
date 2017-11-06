@@ -1,8 +1,8 @@
 
 
-https://travis-ci.org/GetFission/electron-fission.svg?branch=master
+[https://travis-ci.org/GetFission/electron-fission.svg?branch=master](https://travis-ci.org/GetFission/electron-fission.svg?branch=master)
 
-(https://ci.appveyor.com/project/myaccount/myproject/branch/master)[https://ci.appveyor.com/project/myaccount/myproject/branch/master]
+[https://ci.appveyor.com/project/myaccount/myproject/branch/master?svg=true](https://ci.appveyor.com/project/myaccount/myproject/branch/master?svg=true)
 
 ## Install
 
