@@ -1,5 +1,9 @@
 
 
+https://travis-ci.org/GetFission/electron-fission.svg?branch=master
+
+(https://ci.appveyor.com/project/myaccount/myproject/branch/master)[https://ci.appveyor.com/project/myaccount/myproject/branch/master]
+
 ## Install
 
 Install the latest version from NPM,
